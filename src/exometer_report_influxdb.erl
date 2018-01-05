@@ -250,7 +250,8 @@ reconnect(#state{protocol = Protocol, host = Host, port = Port,
                   [{Protocol, Host, Port, Username, Password}]),
             {ok, State#state{connection = Connection}};
         Error ->
-            ?error("InfluxDB reporter reconnecting error: ~p", [Error]),
+            ?error("InfluxDB reporter reconnecting error: ~p",
+                 [{Error, Protocol, Host, Port, Username, Password}]),
             prepare_reconnect(),
             {ok, State#state{connection = undefined}}
     end.
